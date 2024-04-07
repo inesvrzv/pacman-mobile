@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  background-color: rgb(0, 0, 0);
+  margin: 0;
+  padding: 0px 0; /* Add some padding at the top and bottom */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to start */
+  height: 100vh;
+  font-family: 'Press Start 2P', cursive; /* Use an arcade-style font */
+  overflow: auto; /* Prevent scrolling caused by scaling */
+}
+
+#game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center children horizontally */
+  justify-content: flex-start; /* Align children to the top */
+  min-height: 100vh; /* Minimum height to fill the viewport */
+  padding: 20px 0; /* Padding on top and bottom */
+}
+
+#pacman {
+  width: 382px;
+  margin-top: 50px; /* Ensure space between title and game */
+  transform: scale(1.3);
+  transform-origin: center top; /* Adjust if needed */
+}
+
+h1 {
+  color: white;/* Space below the title */
+  text-align: center;
+}
+h2 {
+  color: white;
+  margin-bottom: 20px; /* Space below the title */
+  text-align: center;
+}
+
+#start-screen {
+  display: flex;
+  flex-direction: row;
+  align-items: center;/* Adjust to make it center of the viewport */
+}
+
+#high-scores {
+    position: relative; /* Change from absolute to relative */
+    width: 100%;
+    margin-top: 200px; /* Space from the game board */
+    text-align: center;
+}
+
+.high-score-team1 { color: #2468ea; }
+.high-score-team2 { color: #d10123; }
+.high-score-team3 { color: #822ba0; }
+
+/* Team colors */
+.team1 { color: #2468ea; }
+.team2 { color: #d10123; }
+.team3 { color: #822ba0; }
+
+/* Adjust select element */
+#team-select {
+  background: #000;
+  border: 2px solid #ffc400;
+  color: #ffffff; /* Default text color */
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  border-radius: 5px;
+  width: calc(100% - 1em);
+  margin-right: 20px;
+}
+
+/* Set color for selected option */
+#team-select option:checked {
+  color: inherit; /* Inherit color from parent */
+}
+
+
+#high-scores ol {
+  padding: 0; /* Removes default padding */
+  margin: 10px; /* Adds more space between list items */
+  padding: 5px 0; /* Adds padding inside each list item */
+  min-height: 20px; /* Ensures a minimum height for each list item */
+}
+/* Add additional styling as needed */
+#player-name, #team-select {
+  background: #000; /* Black background for inputs */
+  border: 2px solid #ffc400; /* Yellow border */
+  color: #ffffff; /* White text color */
+  margin-bottom: 0.5em; /* Margin between inputs */
+  padding: 0.5em; /* Padding inside inputs */
+  border-radius: 5px; /* Rounded corners */
+  width: calc(100% - 1em); /* Full width minus padding */
+  margin-right: 20px;
+}
+
+#start-game {
+  background: #ffc400; /* Yellow background for the button */
+  color: #000; /* Black text color */
+  border: none; /* No border */
+  padding: 0.5em 1em; /* Padding around text */
+  border-radius: 5px; /* Rounded corners */
+  font-weight: bold; /* Bold font */
+  cursor: pointer; /* Cursor to indicate it's clickable */
+  box-shadow: 0px 0px 10px #ffc400; /* Glowing effect */
+}
+
+#start-game:hover {
+  background: #ffd700; /* Lighter yellow on hover */
+  box-shadow: 0px 0px 15px #ffd700; /* Stronger glow effect on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  #start-screen {
+    width: 90%; /* Full width on smaller screens */
+    margin: auto; /* Center in the viewport */
+  }
+}
+

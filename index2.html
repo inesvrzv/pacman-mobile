@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Pacman Game</title>
+    <link rel="stylesheet" href="style2.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>Pacman</h1>
+    <div id="pacman"></div>
+    <div id="start-screen">
+        <input type="text" id="player-name" placeholder="Enter your name" required />
+        <select id="team-select" onchange="changeColor()" required>
+            <option value="" disabled selected>Select BDE</option>
+            <option value="team1" style="color: #2468ea;">RNK</option>
+            <option value="team2" style="color: #d10123;">DKR</option>
+            <option value="team3" style="color: #822ba0;">KMK</option>
+        </select>
+        
+        <script>
+        function changeColor() {
+            var select = document.getElementById("team-select");
+            var selectedOption = select.options[select.selectedIndex];
+            select.style.color = selectedOption.style.color;
+        }
+        </script>
+        <button id="start-game">Start Game</button>
+    </div>
+    
+    <div id="high-scores" class="high-score-list">
+        <h2>High Scores</h2>
+        <ol id="high-scores"></ol>
+    </div>
+    <script src="main2.js"></script>
+</body>
+</html>
