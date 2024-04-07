@@ -7,16 +7,19 @@ let touchEndX = 0;
 let touchEndY = 0;
 
 function handleTouchStart(event) {
+    event.preventDefault();
     touchStartX = event.touches[0].clientX;
     touchStartY = event.touches[0].clientY;
 }
 
 function handleTouchMove(event) {
+    event.preventDefault();
     touchEndX = event.touches[0].clientX;
     touchEndY = event.touches[0].clientY;
 }
 
 function handleTouchEnd(event) {
+    event.preventDefault();
     const xDiff = touchEndX - touchStartX;
     const yDiff = touchEndY - touchStartY;
 
