@@ -289,7 +289,7 @@ function imageLoaded() {
 // Function to initialize and load all game images
 function loadGameImages() {
     // Load pill images
-    let pillImageSources = ['pill1.png', 'pill2.png', 'pill3.png', 'pill4.png']; // Add your image filenames here
+    let pillImageSources = ['pill2.png', 'pill2.png', 'pill3.png', 'pill4.png']; // Add your image filenames here
     for (let i = 0; i < pillImageSources.length; i++) {
         let img = new Image();
         img.onload = imageLoaded;
