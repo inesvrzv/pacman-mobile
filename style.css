@@ -17,16 +17,20 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center children horizontally */
-  justify-content: flex-start; /* Align children to the top */
-  min-height: 100vh; /* Minimum height to fill the viewport */
-  padding: 20px 0; /* Padding on top and bottom */
+  justify-content: center;
+  max-width: 70%; /* Limit the width to the viewport width */
+  max-height: 80vh; /* Adjust the height as needed */
+  margin: 20px auto; /* Center the game in the available space */
+  position: relative; /* Container for absolute positioning of children */
+
 }
 
 #pacman {
-  width: 382px;
-  margin-top: 50px; /* Ensure space between title and game */
-  transform: scale(1.3);
-  transform-origin: center top; /* Adjust if needed */
+  width: 60%; /* Make the game fill the container */
+  height: auto; /* Maintain aspect ratio */
+  position: relative; /* Positioned relative to the game container */
+  top: 0;
+  left: 0;
 }
 
 h1 {
@@ -48,7 +52,7 @@ h2 {
 #high-scores {
     position: relative; /* Change from absolute to relative */
     width: 100%;
-    margin-top: 200px; /* Space from the game board */
+    margin-top: 20px; /* Space from the game board */
     text-align: center;
 }
 
@@ -122,13 +126,13 @@ h2 {
 }
 
 #control {
-  position: fixed; /* Stick to the bottom of the viewport */
-  bottom: 10px; /* Align to the bottom and add some space from the edge */
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Center align with respect to the full width */
-  z-index: 1000; /* Ensure it's above everything else */
-  display: flex; /* Use flexbox to align buttons */
-  gap: 15px; /* Increase the spacing between buttons */
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 1000;
 }
 
 /* Common button styling */
@@ -143,8 +147,9 @@ h2 {
   align-items: center; /* Center the text vertically */
   justify-content: center; /* Center the text horizontally */
   aspect-ratio: 1; /* Keep the buttons square */
-  width: 60px; /* Increase the button width */
-  height: 60px; /* Ensure that the height matches the width to maintain the square shape */
+  width: 50px; /* Increase the button width */
+  height: 50px; /* Ensure that the height matches the width to maintain the square shape */
+  font-size: 1rem;
 }
 
 /* Specific button styling to add icons or images */
