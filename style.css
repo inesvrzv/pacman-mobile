@@ -26,7 +26,8 @@ body {
 }
 
 #pacman {
-  width: 60%; /* Make the game fill the container */
+  width: 70%; /* Make the game fill the container */
+  min-width: 150px;
   height: auto; /* Maintain aspect ratio */
   position: relative; /* Positioned relative to the game container */
   top: 0;
@@ -126,13 +127,11 @@ h2 {
 }
 
 #control {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
-  gap: 15px;
-  z-index: 1000;
+  gap: 15px; /* Space between buttons */
+  justify-content: center; /* Center the buttons horizontally */
+  margin-top: 20px; /* Space between the game and the control buttons */
+  z-index: 1000; /* Keep the layer on top */
 }
 
 /* Common button styling */
@@ -140,31 +139,21 @@ h2 {
   background: #333; /* Dark grey, similar to the game border */
   border: 2px solid #fff; /* White border to stand out */
   color: white; /* White text */
-  font-size: 1rem; /* Larger text for that retro feel */
-  padding: 30px; /* Increase spacing inside the button */
+  padding: 15px; /* Adjust padding for better fit */
   cursor: pointer; /* Cursor to indicate clickability */
   display: flex;
   align-items: center; /* Center the text vertically */
   justify-content: center; /* Center the text horizontally */
-  aspect-ratio: 1; /* Keep the buttons square */
-  width: 50px; /* Increase the button width */
-  height: 50px; /* Ensure that the height matches the width to maintain the square shape */
+  width: 50px; /* Button width */
+  height: 50px; /* Button height */
   font-size: 1rem;
+  margin: 0; /* Remove any default margin */
 }
 
 /* Specific button styling to add icons or images */
-#control button#left {
-  background-repeat: no-repeat;
-  background-position: center;
-}
-#control button#right {
-  background-repeat: no-repeat;
-  background-position: center;
-}
-#control button#up {
-  background-repeat: no-repeat;
-  background-position: center;
-}
+#control button#left,
+#control button#right,
+#control button#up,
 #control button#down {
   background-repeat: no-repeat;
   background-position: center;
@@ -174,6 +163,7 @@ h2 {
 #control button:focus {
   outline: none;
 }
+
 #control button:active {
   transform: scale(0.9); /* Button press effect */
   background-color: #ffd700; /* Color when the button is pressed */
