@@ -1,81 +1,6 @@
 /*jslint browser: true, undef: true, eqeqeq: true, nomen: true, white: true */
 /*global window: false, document: false */
 
-let touchStartX = 0;
-let touchStartY = 0;
-let touchEndX = 0;
-let touchEndY = 0;
-
-function handleTouchStart(event) {
-    event.preventDefault();
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
-}
-
-function handleTouchMove(event) {
-    event.preventDefault();
-    touchEndX = event.touches[0].clientX;
-    touchEndY = event.touches[0].clientY;
-}
-
-function handleTouchEnd(event) {
-    event.preventDefault();
-    const xDiff = touchEndX - touchStartX;
-    const yDiff = touchEndY - touchStartY;
-
-    if (Math.abs(xDiff) > Math.abs(yDiff)) { // Most significant.
-        if (xDiff > 0) {
-            console.log("right swipe");
-            // Implement right swipe action
-        } else {
-            console.log("left swipe");
-            // Implement left swipe action
-        }
-    } else {
-        if (yDiff > 0) {
-            console.log("down swipe");
-            // Implement down swipe action
-        } else {
-            console.log("up swipe");
-            // Implement up swipe action
-        }
-    }
-    // Reset values
-    touchStartX = 0;
-    touchStartY = 0;
-    touchEndX = 0;
-    touchEndY = 0;
-}
-
-const gameContainer = document.getElementById('pacman');
-gameContainer.addEventListener('touchstart', handleTouchStart, false);
-gameContainer.addEventListener('touchmove', handleTouchMove, false);
-gameContainer.addEventListener('touchend', handleTouchEnd, false);
-
-function handleTouchEnd(event) {
-    // Existing code...
-
-    if (Math.abs(xDiff) > Math.abs(yDiff)) {
-        if (xDiff > 0) {
-            // Right swipe
-            user.keyDown({keyCode: KEY.ARROW_RIGHT});
-        } else {
-            // Left swipe
-            user.keyDown({keyCode: KEY.ARROW_LEFT});
-        }
-    } else {
-        if (yDiff > 0) {
-            // Down swipe
-            user.keyDown({keyCode: KEY.ARROW_DOWN});
-        } else {
-            // Up swipe
-            user.keyDown({keyCode: KEY.ARROW_UP});
-        }
-    }
-    // Reset values
-}
-
-
 // Declare global variables for Supabase client and functions
 let supabase;
 
@@ -168,15 +93,24 @@ function initApp() {
 //window.onload = initApp;
 // Initialization of Supabase client and high scores loading happens on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
-    initApp(); // Set up initial state but don't start the game yet
+    initApp(); // Set up initial state but don't start the game yet.
 
+    const controlDiv = document.getElementById('control');
     const startGameButton = document.getElementById('start-game');
     const el = document.getElementById("pacman");
+
+    // Initially hide the control buttons until the game starts
+    if (controlDiv) {
+        controlDiv.style.display = 'none';
+    } else {
+        console.error("Control div not found");
+    }
 
     if (el && 'getContext' in document.createElement('canvas')) {
         if (startGameButton) {
             startGameButton.addEventListener('click', function() {
-                validateAndProceed(el); // Pass the canvas element to the validate function
+                // Assuming validateAndProceed will show the control div if validation passes
+                validateAndProceed(el); // Pass the canvas element to the validate function.
             });
         } else {
             console.error("Start game button not found");
@@ -184,7 +118,28 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         el.textContent = "Sorry, needs a browser with support for canvas.";
     }
+
+    // Arrow Controls Integration
+    const controlButtons = document.querySelectorAll('#control button');
+    controlButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const directionMap = {
+                'left': KEY.ARROW_LEFT,
+                'up': KEY.ARROW_UP,
+                'down': KEY.ARROW_DOWN,
+                'right': KEY.ARROW_RIGHT
+            };
+            // Simulate a key event for Pacman based on the button clicked.
+            const direction = directionMap[e.target.id];
+            if (direction !== undefined) {
+                // Simulating Pacman's movement logic tied to keyDown events.
+                var simulatedEvent = new KeyboardEvent("keydown", {"keyCode": direction, "which": direction});
+                document.dispatchEvent(simulatedEvent);
+            }
+        });
+    });
 });
+
 
 function validateAndProceed(el) {
     const playerNameInput = document.getElementById('player-name').value.trim();
@@ -201,7 +156,10 @@ function validateAndProceed(el) {
     document.getElementById('start-screen').style.display = 'none'; // Hide the start screen
 
     // Now initialize the game after the player clicks start and validation passes
+    console.log("About to initialize PACMAN with element:", el);
     PACMAN.init(el, '.');
+    document.getElementById('control').style.display = 'flex'; // Or 'block'
+    console.log("Control div display after init call:", document.getElementById('control').style.display);
 }
 
 
@@ -256,6 +214,7 @@ function startGameAfterValidation() {
     const gameContainer = document.getElementById("pacman");
     if (gameContainer) {
         PACMAN.init(gameContainer, '.');
+        document.getElementById('control').style.display = 'flex';
     } else {
         console.error("Game container element not found.");
     }
@@ -289,7 +248,7 @@ function imageLoaded() {
 // Function to initialize and load all game images
 function loadGameImages() {
     // Load pill images
-    let pillImageSources = ['pill2.png', 'pill2.png', 'pill3.png', 'pill4.png']; // Add your image filenames here
+    let pillImageSources = ['pill1.png', 'pill2.png', 'pill3.png', 'pill4.png']; // Add your image filenames here
     for (let i = 0; i < pillImageSources.length; i++) {
         let img = new Image();
         img.onload = imageLoaded;
@@ -305,8 +264,8 @@ function loadGameImages() {
         eaten: 'ghostface_eaten.png'
     };
     let pacmanImageSources = {
-        regular: 'face.png',
-        dead: 'dead.png'
+        regular: 'pacbear.png',
+        dead: 'pacbeadDead.png'
     };
 
     // Assign onload and onerror for ghost images
@@ -808,7 +767,7 @@ Pacman.User = function (game, map) {
     
         // Adjusting for image overlay
         if (amount < 1) {
-            var scale = 1.5; // Adjust based on your preferred scaling
+            var scale = 0.7; // Adjust based on your preferred scaling
             var imageSize = size * scale; // New size based on scale
             var imagePosX = ((position.x / 10) * size) + half - (imageSize / 2); // Center image on Pacman
             var imagePosY = ((position.y / 10) * size) + half - (imageSize / 2); // Center image on Pacman
@@ -1193,6 +1152,7 @@ var PACMAN = (function () {
     
     
     async function showGameOverScreen(score) {
+        document.getElementById('control').style.display = 'none';
         console.log('Showing game over screen');
         let gameOverScreen = document.getElementById('game-over-screen');
         if (!gameOverScreen) {
@@ -1470,6 +1430,7 @@ var PACMAN = (function () {
     
     
     function init(wrapper, root) {
+        console.log("PACMAN init started. Control div display:", document.getElementById('control').style.display);
         var blockSize = wrapper.offsetWidth / 19;
         var pillSize = blockSize * 0.6;
         gameImages.pillSize = pillSize;
@@ -1527,6 +1488,7 @@ var PACMAN = (function () {
         timer = setInterval(mainLoop, 1000 / Pacman.FPS);
     
         startNewGame(); // Load the game assets and high scores
+        console.log("PACMAN init finished. Control div display:", document.getElementById('control').style.display);
     }
     
        
