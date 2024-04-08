@@ -98,7 +98,7 @@ h2 {
   margin-bottom: 0.5em; /* Margin between inputs */
   padding: 0.5em; /* Padding inside inputs */
   border-radius: 5px; /* Rounded corners */
-  width: calc(100% - 1em); /* Full width minus padding */
+  width: 70%; /* Full width minus padding */
   margin-right: 20px;
 }
 
