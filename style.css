@@ -121,3 +121,56 @@ h2 {
   }
 }
 
+#control {
+  position: fixed; /* Stick to the bottom of the viewport */
+  bottom: 10px; /* Align to the bottom and add some space from the edge */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center align with respect to the full width */
+  z-index: 1000; /* Ensure it's above everything else */
+  display: flex; /* Use flexbox to align buttons */
+  gap: 15px; /* Increase the spacing between buttons */
+}
+
+/* Common button styling */
+#control button {
+  background: #333; /* Dark grey, similar to the game border */
+  border: 2px solid #fff; /* White border to stand out */
+  color: white; /* White text */
+  font-size: 1rem; /* Larger text for that retro feel */
+  padding: 30px; /* Increase spacing inside the button */
+  cursor: pointer; /* Cursor to indicate clickability */
+  display: flex;
+  align-items: center; /* Center the text vertically */
+  justify-content: center; /* Center the text horizontally */
+  aspect-ratio: 1; /* Keep the buttons square */
+  width: 60px; /* Increase the button width */
+  height: 60px; /* Ensure that the height matches the width to maintain the square shape */
+}
+
+/* Specific button styling to add icons or images */
+#control button#left {
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#control button#right {
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#control button#up {
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#control button#down {
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Remove the default styling for better retro look */
+#control button:focus {
+  outline: none;
+}
+#control button:active {
+  transform: scale(0.9); /* Button press effect */
+  background-color: #ffd700; /* Color when the button is pressed */
+  box-shadow: 0 0 15px #ffd700; /* Make the shadow more pronounced on active */
+}
