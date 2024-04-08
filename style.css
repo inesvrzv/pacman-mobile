@@ -124,11 +124,21 @@ h2 {
     width: 90%; /* Full width on smaller screens */
     margin: auto; /* Center in the viewport */
   }
+  #control {
+    gap: 5vw; /* Use viewport width for dynamic spacing */
+  }
+
+  #control button {
+    padding: 5vw; /* Use viewport width to scale padding with the screen size */
+    width: 12vw; /* Use viewport width to scale the button size with the screen */
+    height: 12vw; /* Use viewport width to scale the button size with the screen */
+    font-size: 4vw; /* Scale font size with the viewport width */
+  }
 }
 
 #control {
   display: flex;
-  gap: 15px; /* Space between buttons */
+  gap: 25px; /* Space between buttons */
   justify-content: center; /* Center the buttons horizontally */
   margin-top: 20px; /* Space between the game and the control buttons */
   z-index: 1000; /* Keep the layer on top */
@@ -144,8 +154,8 @@ h2 {
   display: flex;
   align-items: center; /* Center the text vertically */
   justify-content: center; /* Center the text horizontally */
-  width: 50px; /* Button width */
-  height: 50px; /* Button height */
+  width: 60px; /* Button width */
+  height: 60px; /* Button height */
   font-size: 1rem;
   margin: 0; /* Remove any default margin */
 }
