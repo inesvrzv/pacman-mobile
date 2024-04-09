@@ -67,15 +67,31 @@ function updateHighScoresUI(scores) {
     const scoresList = document.getElementById('high-scores').querySelector('ol');
     scoresList.innerHTML = ''; // Clear current scores
 
-    scores.forEach((score, index) => {
-        const rank = index + 1;  // Calculate rank based on array position
+    // Create a map to track the highest score for each player
+    const highestScoresMap = scores.reduce((acc, score) => {
+        // If the player doesn't exist in the map or has a higher score now, update/add them
+        if (!acc[score.name] || acc[score.name].score < score.score) {
+            acc[score.name] = score;
+        }
+        return acc;
+    }, {});
+
+    // Convert the map to an array of scores
+    const highestScores = Object.values(highestScoresMap);
+
+    // Sort the scores in descending order
+    highestScores.sort((a, b) => b.score - a.score);
+
+    // Display the sorted, highest scores
+    highestScores.forEach((score, index) => {
+        const rank = index + 1; // Calculate rank based on array position
         const listItem = document.createElement('li');
         listItem.textContent = `${rank}. ${score.name}: ${score.score}`;
         listItem.className = `high-score-${score.team}`; // Apply color based on team
         scoresList.appendChild(listItem);
     });
 
-    if (scores.length === 0) {
+    if (highestScores.length === 0) {
         scoresList.innerHTML = '<li>No high scores yet!</li>';
     }
 }
@@ -1172,27 +1188,37 @@ var PACMAN = (function () {
         gameOverScreen.style.color = 'white';
         gameOverScreen.style.padding = '20px';
         gameOverScreen.style.textAlign = 'center';
-        gameOverScreen.style.borderRadius = '10px'; // Added a border radius for a softer look
-        gameOverScreen.style.fontSize = '20px'; // Adjust the font size for better readability
+        gameOverScreen.style.borderRadius = '10px';
+        gameOverScreen.style.fontSize = '20px';
         
-        // Initialize game over screen HTML structure
         gameOverScreen.innerHTML = `
             <h1>Game Over</h1>
             <p>Score: ${score}</p>
             <p><span id="player-rank">calculating...</span></p>
             <button id="start-new-game-button" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Start New Game</button>
-        `; // Added inline styling for the button for better visibility
+        `;
     
-        // Attach the event listener to the Start New Game button
         const startNewGameButton = document.getElementById("start-new-game-button");
         startNewGameButton.onclick = () => {
-            PACMAN.startNewGame(); // Make sure this aligns with how you're structuring your game start logic
+            PACMAN.startNewGame();
         };
     
-        // Calculate and update rank after fetching high scores
         try {
             const scores = await loadHighScores();
-            const rank = scores.findIndex(s => s.score <= score) + 1;
+    
+            // Filter and sort to get the highest score per player
+            const highestScoresMap = scores.reduce((acc, score) => {
+                if (!acc[score.name] || acc[score.name].score < score.score) {
+                    acc[score.name] = score;
+                }
+                return acc;
+            }, {});
+    
+            const highestScores = Object.values(highestScoresMap);
+            highestScores.sort((a, b) => b.score - a.score);
+    
+            // Calculate rank based on the highest score list
+            const rank = highestScores.findIndex(s => s.score <= score) + 1;
             document.getElementById('player-rank').textContent = rank > 0 ? `Rank: ${rank}` : 'N/A';
         } catch (error) {
             console.error('Error calculating rank:', error);
