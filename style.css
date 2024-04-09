@@ -124,9 +124,6 @@ h2 {
     width: 90%; /* Full width on smaller screens */
     margin: auto; /* Center in the viewport */
   }
-  #control {
-    gap: 5vw; /* Use viewport width for dynamic spacing */
-  }
 
   #control button {
     padding: 5vw; /* Use viewport width to scale padding with the screen size */
@@ -136,12 +133,18 @@ h2 {
   }
 }
 
+.control-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
 #control {
   display: flex;
-  gap: 25px; /* Space between buttons */
-  justify-content: center; /* Center the buttons horizontally */
-  margin-top: 20px; /* Space between the game and the control buttons */
-  z-index: 1000; /* Keep the layer on top */
+  flex-direction: column;
+  gap: 10px; /* Space between rows */
+  align-items: center; /* Center rows horizontally */
+  margin-top: 20px; /* Space from the game board */
 }
 
 /* Common button styling */
