@@ -63,15 +63,26 @@ async function refreshAndDisplayScores() {
     }
 }
 
+function normalizeName(name) {
+    // Remove special characters, spaces, and convert to lowercase
+    return name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+}
+
+
 function updateHighScoresUI(scores) {
-    const scoresList = document.getElementById('high-scores').querySelector('ol');
+    const scoresList = document.getElementById('high-scores');
+    if (!scoresList) {
+        console.error('High scores list element not found.');
+        return;
+    }
     scoresList.innerHTML = ''; // Clear current scores
 
-    // Create a map to track the highest score for each player
+    // Create a map to track the highest score for each normalized player name
     const highestScoresMap = scores.reduce((acc, score) => {
-        // If the player doesn't exist in the map or has a higher score now, update/add them
-        if (!acc[score.name] || acc[score.name].score < score.score) {
-            acc[score.name] = score;
+        const normalizedScoreName = normalizeName(score.name);
+        if (!acc[normalizedScoreName] || acc[normalizedScoreName].score < score.score) {
+            // Using the original name in the score object for display
+            acc[normalizedScoreName] = { ...score, normalizedScoreName: normalizedScoreName };
         }
         return acc;
     }, {});
@@ -95,6 +106,8 @@ function updateHighScoresUI(scores) {
         scoresList.innerHTML = '<li>No high scores yet!</li>';
     }
 }
+
+
 
 
 // Initialize Supabase client and define global functions
